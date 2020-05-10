@@ -1,0 +1,26 @@
+{
+  "presets": [
+    "@babel/typescript",
+    ["@babel/preset-env", {
+      "targets": {
+        "node": "current"
+      }
+    }]
+  ],
+  "plugins": [
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@config": "./src/config",
+        "@generated": "./src/generated",
+        "@jobs": "./src/jobs",
+        "@modules": "./src/modules",
+        "@services": "./src/services",
+        "@types": "./src/types",
+        "@utils": "./src/utils"
+      }
+    }]
+  ]
+}

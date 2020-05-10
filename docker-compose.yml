@@ -1,0 +1,19 @@
+version: '2'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: env/development/api.env
+    ports:
+      - 4001:4001
+    command: yarn start:dev
+    volumes:
+      - '.:/project'
+      - /project/node_modules
+      - /project/dist
+    networks:
+      - sarpo-api
+
+networks:
+  sarpo-api:
