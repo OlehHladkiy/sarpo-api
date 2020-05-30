@@ -1,5 +1,6 @@
 import AuthSchema from '@modules/auth/auth.schema';
 import UserSchema from '@modules/user/user.schema';
+import ConferenceSchema from '@modules/conference/conference.schema';
 
 export const baseType = `
   scalar Date
@@ -19,6 +20,6 @@ export const baseType = `
   }
 `;
 
-const typeDefs = [baseType, AuthSchema, UserSchema];
+const typeDefs = [baseType, AuthSchema, UserSchema, ConferenceSchema];
 
 export default typeDefs;
