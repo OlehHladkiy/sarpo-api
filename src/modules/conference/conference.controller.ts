@@ -11,7 +11,10 @@ export default class ConferenceController {
     ctx: Context,
     { filters = {} }: { filters: Record<string, any> },
   ) => {
-    const conference = await Conference.findOne(filters);
+    const conference = await Conference.findOne({
+      author: ctx.user._id,
+      ...filters,
+    });
 
     return conference;
   };
@@ -48,6 +51,35 @@ export default class ConferenceController {
         author: ctx.user._id,
         onboardedSteps: ['basic'],
       });
+
+      return conference;
+    } catch (err) {
+      return badData(err);
+    }
+  };
+
+  /**
+   * Update an existing conference.
+   */
+  public static updateConference = async (
+    ctx: Context,
+    {
+      conferenceId,
+      ...dataToUpdate
+    }: {
+      conferenceId: string;
+    },
+  ) => {
+    try {
+      const conference = await Conference.findOneAndUpdate(
+        { _id: conferenceId, author: ctx.user._id },
+        {
+          $set: dataToUpdate,
+        },
+        {
+          new: true,
+        },
+      );
 
       return conference;
     } catch (err) {

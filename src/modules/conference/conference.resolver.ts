@@ -12,6 +12,8 @@ export const resolvers = {
   Mutation: {
     createConference: async (_: any, { data }: any, ctx: Context) =>
       await ConferenceController.createConference(ctx, data),
+    updateConference: async (_: any, { data }: any, ctx: Context) =>
+      await ConferenceController.updateConference(ctx, data),
   },
 };
 

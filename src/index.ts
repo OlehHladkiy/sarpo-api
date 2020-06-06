@@ -1,3 +1,4 @@
+import cloudinary from 'cloudinary';
 import { makeExecutableSchema } from 'graphql-tools';
 import { GraphQLServer } from 'graphql-yoga';
 import mongoose from 'mongoose';
@@ -9,7 +10,9 @@ import appConfig from '@config/appConfig';
 import AuthController from '@modules/auth/auth.controller';
 import { permissions } from '@modules/permissions';
 import LoggerService from '@services/logger';
+import cloudinaryConfig from '@config/cloudinaryConfig';
 import { Context } from '@types';
+
 import { middlewares as apiMiddlewares, resolvers } from './resolvers';
 import { registerRestEndpoints } from './rest-routes';
 import typeDefs from './schema';
@@ -26,6 +29,11 @@ LoggerService.initializeLogger();
 
 (async () => {
   await mongoose.connect(mongoConfig.uri, mongoConfig.connectionOptions);
+  cloudinary.v2.config({
+    cloud_name: cloudinaryConfig.name,
+    api_key: cloudinaryConfig.key,
+    api_secret: cloudinaryConfig.secret,
+  });
 })();
 
 const schema: any = makeExecutableSchema({
