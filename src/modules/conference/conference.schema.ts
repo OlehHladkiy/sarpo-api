@@ -80,6 +80,7 @@ const Conference = gql`
   }
 
   input UpdateConferenceTicketsInput {
+    _id: String!
     title: String
     quantity: Int
     type: String
